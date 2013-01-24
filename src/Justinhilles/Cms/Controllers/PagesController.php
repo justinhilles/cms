@@ -12,7 +12,7 @@ class PagesController extends BaseController {
 	public function show($path)
 	{
 		if(!$page = Page::wherepath($path)->first()) {
-			App::abort(404, 'Page not found');
+			\App::abort(404, 'Page not found');
 		}
 
 		if(!isset($this->view)) {
