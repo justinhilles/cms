@@ -1,0 +1,28 @@
+{
+    "name": "justinhilles/cms",
+    "description": "A Simple CMS",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Justin Hilles",
+            "email": "justin@justinhilles.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x",
+        "baum/baum": "~1.0",
+        "cviebrock/eloquent-sluggable": "1.0.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations",
+            "src/database/seeds",
+            "src/commands"
+        ],
+        "psr-0": {
+            "Justinhilles\\Cms": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
