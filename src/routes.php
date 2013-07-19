@@ -6,4 +6,4 @@ Route::group(array('prefix' => 'admin', 'before' => ''), function() {
 });
 
 // Catch All
-//Route::any('{path}', 'PagesController@show')->where('path', '.*');
+Route::any('{path}', 'PagesController@show')->where('path', '.*');
