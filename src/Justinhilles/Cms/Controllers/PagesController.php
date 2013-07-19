@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Page;
+use Justinhilles\Cms\Models\Page;
 
 class PagesController extends BaseController {
 
