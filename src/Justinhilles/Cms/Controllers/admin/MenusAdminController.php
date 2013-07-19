@@ -1,6 +1,9 @@
-<?php
+<?php namespace Justinhilles\Cms\Controllers\Admin;
 
 use Justinhilles\Cms\Models\Menu;
+use Justinhilles\Admin\Controllers\AdminController;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\View;
 
 class MenusAdminController extends AdminController {
 
