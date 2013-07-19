@@ -18,6 +18,6 @@ class PagesController extends Controller {
 			$this->view = $page->view;
 		}
 
-		return View::make('cms::pages.show', array('page' => $page));
+		return View::make('pages.show', array('page' => $page));
 	}
 }

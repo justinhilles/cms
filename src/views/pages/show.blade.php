@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends(Config::get('cms::config.front.layout'))
 
 @section('main')
 	<div id="content" class="span12">
