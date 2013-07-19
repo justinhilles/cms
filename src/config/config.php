@@ -18,6 +18,7 @@ return array(
 		'PageObserver' => 'Justinhilles\Cms\Observers\PageObserver',
 		'Sluggable' => 'Cviebrock\EloquentSluggable\Facades\Sluggable',
 		'PagesAdminController' => 'Justinhilles\Cms\Controllers\admin\PagesAdminController',
+		'MenusAdminController' => 'Justinhilles\Cms\Controllers\admin\MenusAdminController',
 		'MenuRenderer' => 'Justinhilles\Cms\Menus\MenuRenderer',
 		'NestedSetRenderer' => 'Justinhilles\Cms\Menus\NestedSetRenderer',
 		'PagesController' => 'Justinhilles\Cms\Controllers\PagesController'
