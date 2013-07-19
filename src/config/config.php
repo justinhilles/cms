@@ -9,11 +9,11 @@ return array(
 		'per_page' => 10
 	),
 	'aliases' => array(
-		'AdminController' => 'Justinhilles\Admin\Controllers\AdminController',
 		'Page' => 'Justinhilles\Cms\Models\Page',
 		'Menu' => 'Justinhilles\Cms\Models\Menu',
 		'PageObserver' => 'Justinhilles\Cms\Observers\PageObserver',
-		'Sluggable' => 'Cviebrock\EloquentSluggable\Facades\Sluggable'
+		'Sluggable' => 'Cviebrock\EloquentSluggable\Facades\Sluggable',
+		'PagesAdminController' => 'Justinhilles\Cms\Controllers\PagesAdminController'
 	),
 	'observers' => array(
 		'Page' => 'PageObserver'

@@ -1,4 +1,4 @@
-<?php
+<?php namespace Justinhilles\Cms\Controllers;
 
 class PagesAdminController extends AdminController {
 
