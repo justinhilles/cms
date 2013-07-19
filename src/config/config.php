@@ -19,6 +19,7 @@ return array(
 		'Sluggable' => 'Cviebrock\EloquentSluggable\Facades\Sluggable',
 		'PagesAdminController' => 'Justinhilles\Cms\Controllers\admin\PagesAdminController',
 		'MenuRenderer' => 'Justinhilles\Cms\Menus\MenuRenderer',
+		'NestedSetRenderer' => 'Justinhilles\Cms\Menus\NestedSetRenderer',
 		'PagesController' => 'Justinhilles\Cms\Controllers\PagesController'
 	),
 	'observers' => array(

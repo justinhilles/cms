@@ -2,7 +2,7 @@
 
     <div id="tree" class="span2">
         <ul class="nav nav-list">
-            {{ MenuRenderer::find('header')->render() }}
+            {{ NestedSetRenderer::create(Page::all()) }}
         </ul>
     </div>
     <div class="span7">
