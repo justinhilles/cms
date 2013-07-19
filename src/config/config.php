@@ -14,7 +14,8 @@ return array(
 		'PageObserver' => 'Justinhilles\Cms\Observers\PageObserver',
 		'Sluggable' => 'Cviebrock\EloquentSluggable\Facades\Sluggable',
 		'PagesAdminController' => 'Justinhilles\Cms\Controllers\admin\PagesAdminController',
-		'MenuRenderer' => 'Justinhilles\Cms\Menus\MenuRenderer'
+		'MenuRenderer' => 'Justinhilles\Cms\Menus\MenuRenderer',
+		'PagesController' => 'Justinhilles\Cms\Controllers\PagesController'
 	),
 	'observers' => array(
 		'Page' => 'PageObserver'

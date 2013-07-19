@@ -1,4 +1,4 @@
-<?php
+<?php namespace Justinhilles\Cms\Controllers;
 
 use Justinhilles\Cms\Models\Page;
 
