@@ -8,6 +8,8 @@ class PagesController extends Controller {
 
 	public $layout = "cms::layouts.default";
 
+	public $view = 'pages.show';
+
 	public function show($path)
 	{
 		if(!$page = Page::where('path', '=', $path)->first()) {
@@ -18,6 +20,6 @@ class PagesController extends Controller {
 			$this->view = $page->view;
 		}
 
-		return View::make('pages.show', array('page' => $page));
+		return View::make($this->view, array('page' => $page));
 	}
 }
