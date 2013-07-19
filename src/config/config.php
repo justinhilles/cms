@@ -5,8 +5,12 @@ return array(
 		'pages.show' => 'Default', 
 		'pages.home' => 'Home'
 	),
+	'front' => array(
+		'layout' => 'layouts.default'
+	),
 	'admin' => array(
-		'per_page' => 10
+		'per_page' => 10,
+		'layout' => 'layouts.default'
 	),
 	'aliases' => array(
 		'Page' => 'Justinhilles\Cms\Models\Page',
