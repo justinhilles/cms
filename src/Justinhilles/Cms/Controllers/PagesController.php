@@ -1,12 +1,12 @@
 <?php namespace Justinhilles\Cms\Controllers;
 
 use Justinhilles\Cms\Models\Page;
+use Illuminate\Routing\Controllers\Controller;
+use Illuminate\Support\Facades\View;
 
-class PagesController extends BaseController {
+class PagesController extends Controller {
 
 	public $layout = "cms::layouts.default";
-
-	public $view = 'pages.show';
 
 	public function show($path)
 	{
@@ -18,6 +18,6 @@ class PagesController extends BaseController {
 			$this->view = $page->view;
 		}
 
-		return View::make($this->view, array('page' => $page));
+		return View::make('cms::pages.show', array('page' => $page));
 	}
 }

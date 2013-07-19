@@ -1,4 +1,4 @@
-@extends('cms::layouts.default')
+@extends('layouts.default')
 
 @section('main')
 	<div id="content" class="span12">
