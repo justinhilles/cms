@@ -1,4 +1,9 @@
-<?php namespace Justinhilles\Cms\Controllers;
+<?php namespace Justinhilles\Cms\Controllers\Admin;
+
+use Justinhilles\Admin\Controllers\AdminController;
+use Justinhilles\Cms\Models\Page;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\View;
 
 class PagesAdminController extends AdminController {
 

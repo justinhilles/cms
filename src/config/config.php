@@ -13,7 +13,7 @@ return array(
 		'Menu' => 'Justinhilles\Cms\Models\Menu',
 		'PageObserver' => 'Justinhilles\Cms\Observers\PageObserver',
 		'Sluggable' => 'Cviebrock\EloquentSluggable\Facades\Sluggable',
-		'PagesAdminController' => 'Justinhilles\Cms\Controllers\PagesAdminController'
+		'PagesAdminController' => 'Justinhilles\Cms\Controllers\admin\PagesAdminController'
 	),
 	'observers' => array(
 		'Page' => 'PageObserver'
