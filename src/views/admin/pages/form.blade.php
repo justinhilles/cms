@@ -2,7 +2,7 @@
 
     <div id="tree" class="span2">
         <ul class="nav nav-list">
-            {{ NestedSetRenderer::create(Page::all()) }}
+            {{ NestedSetRenderer::create(Page::orderBy('lft')->get(), array('link_closure' => function($page){return link_to_route('admin.pages.edit', $page->title, array($page->id));})) }}
         </ul>
     </div>
     <div class="span7">

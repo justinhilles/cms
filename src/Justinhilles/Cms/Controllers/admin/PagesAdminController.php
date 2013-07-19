@@ -4,6 +4,9 @@ use Justinhilles\Admin\Controllers\AdminController;
 use Justinhilles\Cms\Models\Page;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 
 class PagesAdminController extends AdminController {
 
@@ -52,8 +55,7 @@ class PagesAdminController extends AdminController {
         $input = array_except(Input::all(), 'position');
         $validation = Validator::make($input, Page::$rules);
 
-        if ($validation->passes())
-        {   
+        if ($validation->passes()) {   
             $page = $this->page->create($input);
 
             return Redirect::route('admin.pages.edit', $page->id);
@@ -75,8 +77,7 @@ class PagesAdminController extends AdminController {
     {
         $page = $this->page->find($id);
 
-        if (is_null($page))
-        {
+        if (is_null($page)) {
             return Redirect::route('admin.pages.index');
         }
 
@@ -91,15 +92,14 @@ class PagesAdminController extends AdminController {
      */
     public function update($id)
     {
-        $input = array_except(Input::all(), array('_method', 'position'));
+        $input = array_except(Input::all(), array('_method', 'position', 'menu_id'));
         $validation = Validator::make($input, Page::$rules);
 
-        if ($validation->passes())
-        {
+        if ($validation->passes()) {
             $page = $this->page->find($id);
             $page->update($input);
 
-            return Redirect::route('admin.pages.index');
+            return Redirect::route('admin.pages.edit', array($page->id));
         }
 
         return Redirect::route('admin.pages.edit', $id)
