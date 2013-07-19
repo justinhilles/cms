@@ -1,4 +1,4 @@
-<?php 
+<?php namespace Justinhilles\Cms\Menus;
 
 use Illuminate\Database\Eloquent\Collection;
 use \Baum\Node;

@@ -1,4 +1,6 @@
-<?php 
+<?php namespace Justinhilles\Cms\Menus;
+
+use Justinhilles\Cms\Models\Menu;
 
 class MenuRenderer extends NestedSetRenderer {
 
