@@ -6,7 +6,8 @@ return array(
 		'pages.home' => 'Home'
 	),
 	'front' => array(
-		'layout' => 'layouts.default'
+		'layout' => 'layouts.default',
+		'view' => 'pages.show'
 	),
 	'admin' => array(
 		'per_page' => 10,
@@ -21,7 +22,7 @@ return array(
 		'MenusAdminController' => 'Justinhilles\Cms\Controllers\admin\MenusAdminController',
 		'MenuRenderer' => 'Justinhilles\Cms\Menus\MenuRenderer',
 		'NestedSetRenderer' => 'Justinhilles\Cms\Menus\NestedSetRenderer',
-		'PagesController' => 'Justinhilles\Cms\Controllers\PagesController'
+		//'PagesController' => 'Justinhilles\Cms\Controllers\PagesController'
 	),
 	'observers' => array(
 		'Page' => 'PageObserver'
