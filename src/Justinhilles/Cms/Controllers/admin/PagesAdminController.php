@@ -20,6 +20,8 @@ class PagesAdminController extends AdminController {
 
     public function __construct(Page $page)
     {
+        parent::__construct($page);
+
         $this->page = $page;
     }
 
@@ -30,7 +32,7 @@ class PagesAdminController extends AdminController {
      */
     public function index()
     {
-        $pages = $this->page->tree()->paginate(Config::get('cms::config.admin.per_page'));
+        $pages = $this->page->tree()->paginate($this->per_page);
 
         return View::make($this->view('index'), compact('pages'));
     }
