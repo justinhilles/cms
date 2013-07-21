@@ -19,8 +19,7 @@ class PageObserver {
 		if(empty($page->path) && !$page->isRoot()) {
 			$page->makePath();
 		}
-
-		$page->menus()->sync((array) Input::get('menu_id'));
+		
 	}
 
 	public function moving($page)

@@ -1,6 +1,6 @@
 <?php namespace Justinhilles\Cms\Controllers\Admin;
 
-use Justinhilles\Admin\Controllers\Admin\AdminController;
+use Justinhilles\Admin\Controllers\AdminController;
 use Justinhilles\Cms\Models\Page;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Redirect;
 class PagesAdminController extends AdminController {
 
     protected $views = 'cms::admin.pages';
-
-    protected $route = 'admin.pages';
     /**
      * Page Repository
      *
@@ -22,7 +20,7 @@ class PagesAdminController extends AdminController {
 
     public function __construct(Page $page)
     {
-        $this->max = Config::get('cms::config.admin.per_page');
+        parent::__construct($page);
 
         $this->page = $page;
     }
@@ -34,7 +32,7 @@ class PagesAdminController extends AdminController {
      */
     public function index()
     {
-        $pages = $this->page->tree()->paginate($this->max);
+        $pages = $this->page->tree()->paginate($this->per_page);
 
         return View::make($this->view('index'), compact('pages'));
     }
