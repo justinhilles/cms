@@ -23,7 +23,7 @@ class CmsInstallCommand extends Command {
 
     public function fire()
     {
-        $this->call('asset:publish', array('--bench' => self::PACKAGE));
-        $this->call('migrate', array('--bench' => self::PACKAGE));        
+        $this->call('asset:publish', array('package' => self::PACKAGE));
+        $this->call('migrate', array('--package' => self::PACKAGE));        
     }
 }
