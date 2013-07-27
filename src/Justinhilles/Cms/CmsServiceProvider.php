@@ -22,35 +22,6 @@ class CmsServiceProvider extends ServiceProvider {
 		$this->registerCommands();
 	}
 
-	public function boot()
-	{
-		$this->app['config']->package('justinhilles/cms', __DIR__.'/../../config');
-
-		$this->app->register('Cviebrock\EloquentSluggable\SluggableServiceProvider');
-		$this->app->register('Baum\BaumServiceProvider');
-
-		$aliases = Config::get('cms::config.aliases');
-
-		if(!empty($aliases)) {
-			foreach($aliases as $alias => $original) {
-				class_alias($original, $alias);
-			}
-		}
-
-		$observers = Config::get('cms::config.observers');
-
-		if(!empty($observers)) {
-			foreach($observers as $model => $observer) {
-				$model::observe(new $observer);
-			}
-		}
-
-		$this->package('justinhilles/cms');
-
-		include __DIR__.'/../../routes.php';
-		include __DIR__.'/../../macros.php';
-	}
-
 	/**
 	 * Get the services provided by the provider.
 	 *
@@ -61,19 +32,68 @@ class CmsServiceProvider extends ServiceProvider {
 		return array('cms');
 	}
 
-		/** register the custom commands **/
-	public function registerCommands()
+	public function boot()
 	{
-		$commands = array('CmsInstall');
 
-		$this->app['command.cms.install'] = $this->app->share(function($app)
+		$this->package('justinhilles/cms');
+
+		$this->app['config']->package('justinhilles/cms', __DIR__.'/../../config');
+
+		$this->registerProviders(Config::get('cms::app.providers'));
+
+		$this->registerAliases(Config::get('cms::app.aliases'));
+
+		$this->registerObservers(Config::get('cms::app.observers'));
+
+		include __DIR__.'/../../routes.php';
+		include __DIR__.'/../../macros.php';
+
+		\App::missing(function($exception)
 		{
-			return new CmsInstallCommand();
+		    $content = \View::make('cms::errors.404');
+		    return \Response::make($content, 404);
 		});
-
-		$this->commands(
-			'command.cms.install'
-		);
 	}
 
+
+	public function registerObservers($observers = array())
+	{
+		if(!empty($observers)) {
+			foreach($observers as $model => $observer) {
+				$model::observe(new $observer);
+			}
+		}
+	}
+
+	public function registerAliases($aliases = array())
+	{
+		if(!empty($aliases)) {
+			foreach($aliases as $alias => $original) {
+				class_alias($original, $alias);
+			}
+		}		
+	}
+
+	public function registerProviders($providers = array()) 
+	{
+		if(!empty($providers)) {
+			foreach($providers as $provider) {
+				$this->app->register($provider);
+			}	
+		}
+	}
+
+	/** register the custom commands **/
+	public function registerCommands($commands = array())
+	{
+		if(!empty($commands)) {
+			foreach($commands as $alias => $class) {
+				$this->app[$alias] = $this->app->share(function($app) use ($class) {
+					return new $class;
+				});
+
+				$this->commands($alias);				
+			}
+		}
+	}
 }
