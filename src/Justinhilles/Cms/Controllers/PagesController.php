@@ -7,7 +7,7 @@ use Justinhilles\Admin\Controllers\BaseController;
 
 class PagesController extends BaseController {
 
-	public $layout = 'cms::layouts.default';
+	public $layout = 'layouts.default';
 
 	public $view = 'pages.show';
 
