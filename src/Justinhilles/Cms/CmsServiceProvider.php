@@ -1,10 +1,11 @@
 <?php namespace Justinhilles\Cms;
 
 use Illuminate\Support\ServiceProvider; 
-use Illuminate\Support\Facades\Config;
 
 class CmsServiceProvider extends ServiceProvider {
 
+	use \Justinhilles\Admin\Providers\BaseServiceProvider;
+	
 	/**
 	 * Indicates if loading of the provider is deferred.
 	 *
@@ -19,36 +20,14 @@ class CmsServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->registerCommands();
+		$this->package('justinhilles/cms');
+
+		$this->registerFromConfig('cms');
 	}
 
 	public function boot()
 	{
-		$this->app['config']->package('justinhilles/cms', __DIR__.'/../../config');
-
-		$this->app->register('Cviebrock\EloquentSluggable\SluggableServiceProvider');
-		$this->app->register('Baum\BaumServiceProvider');
-
-		$aliases = Config::get('cms::app.aliases');
-
-		if(!empty($aliases)) {
-			foreach($aliases as $alias => $original) {
-				class_alias($original, $alias);
-			}
-		}
-
-		$observers = Config::get('cms::app.observers');
-
-		if(!empty($observers)) {
-			foreach($observers as $model => $observer) {
-				$model::observe(new $observer);
-			}
-		}
-
-		$this->package('justinhilles/cms');
-
-		include __DIR__.'/../../routes.php';
-		include __DIR__.'/../../macros.php';
+		$this->bootFromConfig('cms');
 	}
 
 	/**
@@ -60,20 +39,4 @@ class CmsServiceProvider extends ServiceProvider {
 	{
 		return array('cms');
 	}
-
-		/** register the custom commands **/
-	public function registerCommands()
-	{
-		$commands = array('CmsInstall');
-
-		$this->app['command.cms.install'] = $this->app->share(function($app)
-		{
-			return new CmsInstallCommand();
-		});
-
-		$this->commands(
-			'command.cms.install'
-		);
-	}
-
 }

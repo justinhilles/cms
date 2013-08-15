@@ -1,10 +1,6 @@
 <?php
 
 return array(
-	'providers' => array(
-		'Cviebrock\EloquentSluggable\SluggableServiceProvider',
-		'Baum\BaumServiceProvider'
-	),
 	'aliases' => array(
 		'Page' 					=> 'Justinhilles\Cms\Models\Page',
 		'Menu' 					=> 'Justinhilles\Cms\Models\Menu',
@@ -15,10 +11,18 @@ return array(
 		'MenuRenderer' 			=> 'Justinhilles\Cms\Menus\MenuRenderer',
 		'NestedSetRenderer' 	=> 'Justinhilles\Cms\Menus\NestedSetRenderer',
 	),
+	'providers' => array(
+		'Cviebrock\EloquentSluggable\SluggableServiceProvider',
+		'Baum\BaumServiceProvider'
+	),
 	'observers' => array(
 		'Page' 					=> 'PageObserver'
 	),
 	'commands' => array(
-		'command.cms.install' 	=> 'CmsInstallCommand'
-	)
+		'command.cms.install' 	=> 'Justinhilles\Cms\CmsInstallCommand'
+	),
+	'files'			=> array(
+		__DIR__.'/../routes.php',
+		__DIR__.'/../macros.php'
+	),
 );

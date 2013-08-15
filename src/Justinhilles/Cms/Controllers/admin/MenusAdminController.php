@@ -2,15 +2,8 @@
 
 use Justinhilles\Cms\Models\Menu;
 use Justinhilles\Admin\Controllers\Admin\AdminController;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Redirect;
 
 class MenusAdminController extends AdminController {
-
-    protected $layout = 'admin.layouts.default';
 
     protected $views = 'cms::admin.menus';
     /**
@@ -34,7 +27,7 @@ class MenusAdminController extends AdminController {
     {
         $menus = $this->menu->paginate('10');
 
-        return View::make($this->view('index'), compact('menus'));
+        return \View::make($this->view('index'), compact('menus'));
     }
 
     /**
@@ -44,7 +37,7 @@ class MenusAdminController extends AdminController {
      */
     public function create()
     {
-        return View::make($this->view('create'));
+        return \View::make($this->view('create'));
     }
 
     /**
@@ -54,17 +47,17 @@ class MenusAdminController extends AdminController {
      */
     public function store()
     {
-        $input = Input::all();
-        $validation = Validator::make($input, Menu::$rules);
+        $input = \Input::all();
+        $validation = \Validator::make($input, Menu::$rules);
 
         if ($validation->passes())
         {
             $this->menu->create($input);
 
-            return Redirect::route('admin.menus.index');
+            return \Redirect::route('admin.menus.index');
         }
 
-        return Redirect::route('admin.menus.create')
+        return \Redirect::route('admin.menus.create')
             ->withInput()
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');
@@ -81,10 +74,10 @@ class MenusAdminController extends AdminController {
         $menu = $this->menu->find($id);
         if (is_null($menu))
         {
-            return Redirect::route('admin.menus.index');
+            return \Redirect::route('admin.menus.index');
         }
 
-        return View::make($this->view('edit'), compact('menu'));
+        return \View::make($this->view('edit'), compact('menu'));
     }
 
     /**
@@ -95,18 +88,18 @@ class MenusAdminController extends AdminController {
      */
     public function update($id)
     {
-        $input = array_except(Input::all(), '_method');
-        $validation = Validator::make($input, Menu::$rules);
+        $input = array_except(\Input::all(), '_method');
+        $validation = \Validator::make($input, Menu::$rules);
 
         if ($validation->passes())
         {
             $menus = $this->menu->find($id);
             $menus->update($input);
 
-            return Redirect::route('admin.menus.edit', $id);
+            return \Redirect::route('admin.menus.edit', $id);
         }
 
-        return Redirect::route('admin.menus.edit', $id)
+        return \Redirect::route('admin.menus.edit', $id)
             ->withInput()
             ->withErrors($validation)
             ->with('message', 'There were validation errors.');
@@ -122,7 +115,7 @@ class MenusAdminController extends AdminController {
     {
         $this->menu->find($id)->delete();
 
-        return Redirect::route('admin.menus.index');
+        return \Redirect::route('admin.menus.index');
     }
 
 }
