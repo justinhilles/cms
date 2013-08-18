@@ -1,6 +1,8 @@
 <?php
 
 Form::macro('pages', function($name, $pages, $format = "<label class=\"checkbox\">%s%s</label>") {
+
+	$checks = array();
     foreach(Page::orderBy('lft')->get() as $page) {
     	$checked = in_array($page->id, $pages);
     	$checks[] = sprintf($format, Form::checkbox('pages[]', $page->id, $checked), Form::label('pages', $page->getNestedTitle()));
@@ -109,18 +111,19 @@ Form::macro('date', function($name, $options = array()){
 		<script type="text/javascript">jQuery(function(){jQuery( "#%s_date" ).datepicker({ dateFormat: "yy-mm-dd" })});</script>', $name);
 });
 
-
 Form::macro('buttons', function($route, $links = array(), $options = array(), $wrap = '<div id="actions" class="form-actions">%s</div>'){
 	$links[] = link_to_route($route, 'Back', array(), array('class' => 'btn pull-right'));
 	$links[] = Form::submit('Submit', array('class' => 'btn btn-primary pull-right'));
 	return 	sprintf($wrap, implode('&nbsp;', $links));
 });
 
-Form::macro('tag', function( $route , $object = null, $files = false){
+Form::macro('tag', function( $route , $object = null, $files = false, $attributes = array()){
   if(!is_null($object)) {
-  	return Form::model($object, array('method' => 'PUT', 'route' => array($route.'.update', $object->id), 'files' => $files));
+  	$default_attributes = array('method' => 'PUT', 'route' => array($route.'.update', $object->id), 'files' => $files);
+  	return Form::model($object, array_merge($default_attributes, $attributes));
   } else {
-  	return Form::open(array('route' => $route.'.store', 'files' => $files));
+  	$default_attributes = array('route' => $route.'.store', 'files' => $files);
+  	return Form::open(array_merge($default_attributes, $attributes));
   }
 });
 

@@ -1,8 +1,4 @@
-@if(isset($menu))
-    {{ Form::model($menu, array('method' => 'PATCH', 'route' => array('admin.menus.update', $menu->id), 'class' => 'form-horizontal')) }}
-@else
-    {{ Form::open(array('route' => 'admin.menus.store', 'class' => 'form-horizontal')) }}
-@endif
+{{ Form::tag('admin.menus', (isset($menu) ? $menu : null), false, array('class' => 'form-horizontal')) }}
     <div class="control-group">
         {{ Form::label('title', 'Title:', array('class' => 'control-label')) }}
         <div class="controls">
@@ -30,8 +26,4 @@
     </div>
 {{ Form::close() }}
 
-@if ($errors->any())
-    <ul>
-        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-    </ul>
-@endif
+@include('admin::global.errors', compact('errors'))

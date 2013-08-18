@@ -101,4 +101,4 @@
 
 {{ Form::close() }}
 
-@include('cms::admin.global.errors', array('errors' => $errors))
+@include('admin::global.errors', compact('errors'))
