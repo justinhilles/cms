@@ -25,6 +25,11 @@ class PagesController extends BaseController {
 			$this->view = $page->view;
 		}
 
+		if(!empty($page->forward_to)) {
+			$forward_to = Page::find($page->forward_to);
+			return \Redirect::to($page->path);
+		}
+
 		return \View::make($this->view, array('page' => $page));
 	}
 }
