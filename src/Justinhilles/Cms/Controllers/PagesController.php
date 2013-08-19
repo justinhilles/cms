@@ -7,8 +7,6 @@ use Justinhilles\Admin\Controllers\BaseController;
 
 class PagesController extends BaseController {
 
-	public $layout = 'layouts.default';
-
 	public $view = 'pages.show';
 
 	public function show($path)
@@ -27,7 +25,7 @@ class PagesController extends BaseController {
 
 		if(!empty($page->forward_to)) {
 			$forward_to = Page::find($page->forward_to);
-			return \Redirect::to($page->path);
+			return \Redirect::to($forward_to->path);
 		}
 
 		return \View::make($this->view, array('page' => $page));
