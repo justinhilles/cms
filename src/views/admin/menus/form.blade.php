@@ -13,9 +13,12 @@
     </div>
     @if(isset($menu))
         <div class="control-group">
-            {{ Form::label('pages', 'Pages:', array('class' => 'control-label')) }}
-            <div class="controls">
-                {{ Form::pages('pages[]', $menu->pages()->lists('id')) }}
+            <div class="dd">
+                <?php  $menu = Menu::handler($menu->slug, array('class' => 'dd-list'), 'ol');?>
+                <?php foreach(Page::all() as $page):?>
+                <?php  $menu->add($page->path, $page->title, null, array('class' => 'dd-handle'), array('class' => 'dd-item'));?>
+                <?php endforeach;?>
+                {{ $menu->render() }}
             </div>
         </div>
     @endif

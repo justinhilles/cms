@@ -6,14 +6,18 @@ return array(
 		'Menu' 					=> 'Justinhilles\Cms\Models\Menu',
 		'PageObserver' 			=> 'Justinhilles\Cms\Observers\PageObserver',
 		'Sluggable' 			=> 'Cviebrock\EloquentSluggable\Facades\Sluggable',
+		'Menu' 					=> 'Menu\Menu',
+		'Basset'				=> 'Basset\Facade',
 		'PagesAdminController' 	=> 'Justinhilles\Cms\Controllers\admin\PagesAdminController',
 		'MenusAdminController' 	=> 'Justinhilles\Cms\Controllers\admin\MenusAdminController',
 		'MenuRenderer' 			=> 'Justinhilles\Cms\Menus\MenuRenderer',
 		'NestedSetRenderer' 	=> 'Justinhilles\Cms\Menus\NestedSetRenderer',
 	),
 	'providers' => array(
+		'Basset\BassetServiceProvider',
 		'Cviebrock\EloquentSluggable\SluggableServiceProvider',
-		'Baum\BaumServiceProvider'
+		'Baum\BaumServiceProvider',
+		'Menu\MenuServiceProvider'
 	),
 	'observers' => array(
 		'Page' 					=> 'PageObserver'
