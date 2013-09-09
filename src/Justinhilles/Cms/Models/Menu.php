@@ -24,9 +24,10 @@ class Menu extends Model {
 
     public function update(array $attributes = array())
     {
-    	$pages = $attributes['pages'];
-    	$this->pages()->sync($pages);
-    	unset($attributes['pages']);
+        if(isset($attributes['pages'])) {
+    	   $this->pages()->sync($attributes['pages']);
+    	   unset($attributes['pages']);
+        }
     	parent::update($attributes);
 	}
 }

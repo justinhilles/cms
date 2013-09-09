@@ -12,6 +12,9 @@ return array(
 		'MenusAdminController' 	=> 'Justinhilles\Cms\Controllers\admin\MenusAdminController',
 		'MenuRenderer' 			=> 'Justinhilles\Cms\Menus\MenuRenderer',
 		'NestedSetRenderer' 	=> 'Justinhilles\Cms\Menus\NestedSetRenderer',
+		'NestedSetMenuRenderer' => 'Justinhilles\Cms\Menus\NestedSetMenuRenderer',
+		'NestableRenderer' 		=> 'Justinhilles\Cms\Menus\NestableRenderer',
+		'CmsMenuRenderer' 		=> 'Justinhilles\Cms\Menus\CmsMenuRenderer'
 	),
 	'providers' => array(
 		'Basset\BassetServiceProvider',

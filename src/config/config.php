@@ -6,15 +6,15 @@ return array(
 		'pages.home' 	=> 'Home'
 	),
 	'front' => array(
-		'layout' 		=> 'layouts.default',
-		'view' 			=> 'pages.show'
+		'layout' 		=> 'admin::layouts.default',
+		'view' 			=> 'cms::pages.show'
 	),
 	'collection'		=> 'cms',
 	'stylesheets' 		=> array(
 		__DIR__.'/../../public/assets/stylesheets/admin.css'
 	),
 	'javascripts' 		=> array(
-		'//raw.github.com/dbushell/Nestable/master/jquery.nestable.js',
+		__DIR__.'/../../public/assets/javascripts/jquery.nestable.js',
 		__DIR__.'/../../public/assets/javascripts/admin.js'
 	)
 );

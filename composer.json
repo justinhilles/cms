@@ -17,6 +17,7 @@
     },
     "autoload": {
         "classmap": [
+            "src/views",
             "src/migrations",
             "src/database/seeds",
             "src/commands"

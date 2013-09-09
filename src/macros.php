@@ -172,3 +172,102 @@ Form::macro('publishable', function($name, $value = 'published', $options = arra
 	
 	return Form::select($name, (array) $options['values'], $value, $attributes);
 });
+
+Form::macro('nestable', function($name, $menu){
+
+		$nodes = json_decode($menu->nodes, true);
+		$html = '<div class="span12"><div class="row"><div class="span6">';
+		$html .= NestableRenderer::create($name, $nodes);
+        $html .= '</div><div class="span6">';
+        $nodes = json_decode(Page::all()->toJson(), true);
+        $html .= NestableRenderer::create('pages', $nodes);
+        $html .= "</div></div>";
+		$html .= <<<HTML
+<div class="edit">
+	<button id="button" class="btn" type="button">Add Custom Link</button>
+</div>
+HTML;
+		$html .= Form::hidden($name);
+        $html .= <<<HTML
+<script>
+	$(function(){
+		
+		function update(e){
+			var list   = e.length ? e : $(e.target);
+			var nodes  = JSON.stringify(list.nestable('serialise'));
+			$('[name="{$name}"]').val(nodes);
+		}
+
+		function link(url, text) {
+			return $('<li />').attr({
+				'class': 'dd-item', 
+				'data-path': url, 
+				'data-title': text
+			}).html($('<a />').attr({'class': 'dd-handle', href: url}).html(text));
+		}
+
+		function create_modal(path, title) {
+			var m = $('<div class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="myModalLabel">Link</h3></div><div class="modal-body"><input id="url" type="text" placeholder="http://" /><input id="text" type="text" placeholder="Text" /><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Close</button><button class="btn btn-primary">Save</button></div>');
+
+			if(path !== undefined) {
+				m.find('#url').val(path);
+			}
+
+			if(title !== undefined) {
+				m.find('#text').val(title);
+			}
+
+			return m;
+		}
+
+		var nodes = $('#{$name}').nestable().on('change', update);
+		var pages = $('#pages').nestable();
+
+		$('#button').click(function(e){
+
+			var add = create_modal();
+
+			add.find('.btn-primary').click(function(){
+				var url = add.find('#url').val();
+				var text = add.find('#text').val();
+				nodes.find('.dd-list').append(link(url, text));
+				add.modal('hide');
+				nodes.trigger('change');
+				add.remove();
+			});
+
+			add.modal();
+
+			return false;
+		});
+
+		$('.dd-item').each(function(){
+			$(this).prepend($('<button class="edit" type="button"><i class="icon-pencil"></i></button>'));
+			$(this).prepend($('<button class="delete" type="button"><i class="icon-remove"></i></button>'));
+		});
+
+		$('.dd-item button.edit').click(function(){
+			var handle = $(this).parent();
+			var data = handle.data();
+			var edit = create_modal(handle.data('path'), handle.data('title'));
+
+			edit.find('.btn-primary').click(function(){
+				handle.data('title', edit.find('#text').val());
+				handle.data('path', edit.find('#url').val());
+				edit.modal('hide');
+				nodes.trigger('change');
+				edit.remove();
+			});
+
+			edit.modal();
+		});
+
+		$('.dd-item button.delete').click(function(e){
+			$(this).parent().slideUp().remove();
+			nodes.trigger('change');
+		});
+	});
+</script>
+HTML;
+        return sprintf('<div class="nestable row">%s</div>', $html);
+});

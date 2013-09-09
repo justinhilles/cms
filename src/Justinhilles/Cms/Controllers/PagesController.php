@@ -7,8 +7,6 @@ use Justinhilles\Admin\Controllers\BaseController;
 
 class PagesController extends BaseController {
 
-	public $view = 'pages.show';
-
 	public function show($path)
 	{
 		if(!$page = Page::wherepath($path)->first()) {
@@ -28,6 +26,8 @@ class PagesController extends BaseController {
 			return \Redirect::to($forward_to->path);
 		}
 
-		return \View::make($this->view, array('page' => $page));
+		echo \CmsMenuRenderer::create('header');
+
+		return \View::make('cms::pages.show', array('page' => $page));
 	}
 }

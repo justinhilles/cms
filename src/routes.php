@@ -1,9 +1,9 @@
 <?php
 
-Route::group(array('prefix' => 'admin', 'before' => 'auth|permission'), function() {
-	Route::resource('menus', 'MenusAdminController');
-	Route::resource('pages', 'PagesAdminController');
+Route::group(array('prefix' => 'admin', 'before' => 'auth'), function() {
+	Route::resource('menus', 'Justinhilles\Cms\Controllers\Admin\MenusAdminController');
+	Route::resource('pages', 'Justinhilles\Cms\Controllers\Admin\PagesAdminController');
 });
 
 // Catch All, Place at end of your routes file
-//Route::any('{path}', 'PagesController@show')->where('path', '.*');
+//Route::any('{path}', 'Justinhilles\Cms\Controllers\PagesController@show')->where('path', '.*');

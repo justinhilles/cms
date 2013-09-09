@@ -85,7 +85,7 @@
         <div class="control-group">
             {{ Form::label('menu_id', 'Menu:', array('class' => 'control-label')) }}
             <div class="controls">
-                {{ Form::collection('menu_id', Menu::all(), isset($page) ? $page->menus()->get() : array(), array('expand' => true)) }}
+                {{ Form::collection('menu_id', Justinhilles\Cms\Models\Menu::all(), isset($page) ? $page->menus()->get() : array(), array('expand' => true)) }}
             </div>
         </div>
 

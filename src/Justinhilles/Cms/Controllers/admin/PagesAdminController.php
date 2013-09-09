@@ -23,6 +23,7 @@ class PagesAdminController extends AdminController {
     public function __construct(Page $page)
     {
         $this->max = Config::get('cms::config.admin.per_page');
+        
         parent::__construct($page);
 
         $this->page = $page;
@@ -81,6 +82,9 @@ class PagesAdminController extends AdminController {
     public function edit($id)
     {
         $page = $this->page->find($id);
+
+        echo \Justinhilles\Cms\Menus\NestedSetMenuRenderer::create('header');
+        exit;
 
         if (is_null($page)) {
             return Redirect::route('admin.pages.index');

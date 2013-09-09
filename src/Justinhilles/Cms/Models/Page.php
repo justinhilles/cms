@@ -16,7 +16,7 @@ class Page extends Node {
 
     public static $sluggable = array(
         'build_from' => 'title',
-        'save_to'    => 'slug',
+        'save_to' => 'slug',
         'unique' => false
     );
 
@@ -24,7 +24,7 @@ class Page extends Node {
 
     public function menus()
     {
-        return $this->belongsToMany('Menu', 'menus_pages');
+        return $this->belongsToMany('Justinhilles\Cms\Models\Menu', 'menus_pages');
     }
 
     public function tree()
@@ -46,7 +46,7 @@ class Page extends Node {
     { 
       if($this->isRoot())
       {
-        $path = "";
+        $path = null;
       }
       else
       {
