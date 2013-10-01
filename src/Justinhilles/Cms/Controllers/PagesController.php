@@ -26,8 +26,6 @@ class PagesController extends BaseController {
 			return \Redirect::to($forward_to->path);
 		}
 
-		echo \CmsMenuRenderer::create('header');
-
 		return \View::make('cms::pages.show', array('page' => $page));
 	}
 }

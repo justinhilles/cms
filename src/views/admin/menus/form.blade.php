@@ -14,7 +14,7 @@
     <div class="control-group">
         {{ Form::label('nodes', 'Nodes:', array('class' => 'control-label')) }}
         <div class="controls">
-        {{ Form::nestable('nodes', $menu)}}
+        {{ Form::nestable('nodes', compact('menu'))}}
         </div>
     </div>
     <div class="control-group">

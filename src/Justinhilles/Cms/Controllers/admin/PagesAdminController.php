@@ -83,9 +83,6 @@ class PagesAdminController extends AdminController {
     {
         $page = $this->page->find($id);
 
-        echo \Justinhilles\Cms\Menus\NestedSetMenuRenderer::create('header');
-        exit;
-
         if (is_null($page)) {
             return Redirect::route('admin.pages.index');
         }

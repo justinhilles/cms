@@ -9,10 +9,15 @@ abstract class ListRenderer implements Iterator, ListRendererInterface {
 	protected $_level = 0;
 
 	public function __construct($nodes, array $options = array(), array $attributes = array(), $level = 0)
-	{
+	{   
+		//Set Options
 		$this->mergeOptions($options);
+
+		//Set Attributes
 		$this->mergeAttributes($attributes);
+		
 		$this->_nodes = $nodes;
+		
 		$this->_attributes = (array) $attributes;
 	}
 

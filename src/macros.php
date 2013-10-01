@@ -173,15 +173,21 @@ Form::macro('publishable', function($name, $value = 'published', $options = arra
 	return Form::select($name, (array) $options['values'], $value, $attributes);
 });
 
-Form::macro('nestable', function($name, $menu){
+Form::macro('nestable', function($name, $params){
 
-		$nodes = json_decode($menu->nodes, true);
-		$html = '<div class="span12"><div class="row"><div class="span6">';
-		$html .= NestableRenderer::create($name, $nodes);
-        $html .= '</div><div class="span6">';
-        $nodes = json_decode(Page::all()->toJson(), true);
-        $html .= NestableRenderer::create('pages', $nodes);
-        $html .= "</div></div>";
+	if(isset($params['menu'])) {
+		$menu = $params['menu'];
+		$current_nodes = json_decode($menu->nodes, true);
+	}
+
+	$pages = json_decode(Page::all()->toJson(), true);
+		
+		$html = '<div class="span12"><div class="row">';
+		if(isset($current_nodes)){
+			$html .= '<div class="span6">'.NestableRenderer::create($name, $current_nodes).'</div>';
+		}
+        $html .= '<div class="span6">'.NestableRenderer::create('pages', $pages).'</div>';
+        $html .= '</div></div>';
 		$html .= <<<HTML
 <div class="edit">
 	<button id="button" class="btn" type="button">Add Custom Link</button>
