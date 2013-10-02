@@ -32,7 +32,6 @@
                 @endforeach
             </tbody>
         </table>
-
     @else
         There are no pages
     @endif

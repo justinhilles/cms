@@ -2,7 +2,10 @@
 
     <div id="tree" class="span2">
         <ul class="nav nav-list">
-            {{ NestedSetRenderer::create(Page::orderBy('lft')->get(), array('link_closure' => function($page){return link_to_route('admin.pages.edit', $page->title, array($page->id));})) }}
+            {{  NestedSetRenderer::create(Page::orderBy('lft')->get(), array('link_closure' => function($page){
+                    return link_to_route('admin.pages.edit', $page->title, array($page->id));
+                })) 
+            }}
         </ul>
     </div>
     <div class="span7">
@@ -34,11 +37,10 @@
         @if(isset($page))
             <div class="control-group">
                 <div class="controls">
-                    {{ link_to($page->path, 'View Page') }}
+                    {{ link_to($page->path, 'View Page', array('target' =>  '_blank')) }}
                 </div>
             </div>
         @endif
-
 
         <div class="control-group">
             {{ Form::label('slug', 'Slug:', array('class' => 'control-label')) }}

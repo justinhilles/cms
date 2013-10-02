@@ -12,7 +12,7 @@ Form::macro('pages', function($name, $pages, $format = "<label class=\"checkbox\
 });
 
 Form::macro('ckeditor', function($name){
-	return Form::textarea($name, null, array('rows' => '100')).
+	return Form::textarea($name, null, array('rows' => '80')).
 	'<script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.0.1/ckeditor.js"></script>'.
 	'<script src="/vendor/ckfinder/ckfinder.js"></script>'.
 	'<script type="text/javascript">
@@ -23,7 +23,7 @@ Form::macro('ckeditor', function($name){
 			filebrowserUploadUrl : 		"/vendor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files",
 			filebrowserImageUploadUrl : "/vendor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images",
 			filebrowserFlashUploadUrl : "/vendor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash",
-			height: "400px"
+			height: "280px"
 		});
 	</script>';
 });
