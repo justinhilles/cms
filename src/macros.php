@@ -106,23 +106,30 @@ Form::macro('position', function($name, $object = null, $options = array(), $att
 
 Form::macro('date', function($name, $options = array()){
 	return  Form::text($name, null, array('id' => $name.'_date')).
-			sprintf(' <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script type="text/javascript" src="//raw.github.com/timrwood/moment/develop/min/moment.min.js"></script>
-		<script type="text/javascript">jQuery(function(){jQuery( "#%s_date" ).datepicker({ dateFormat: "yy-mm-dd" })});</script>', $name);
+	sprintf(' <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+			<script type="text/javascript" src="//raw.github.com/timrwood/moment/develop/min/moment.min.js"></script>
+			<script type="text/javascript">jQuery(function(){jQuery( "#%s_date" ).datepicker({ dateFormat: "yy-mm-dd" })});</script>', $name);
 });
 
-Form::macro('buttons', function($route, $links = array(), $options = array(), $wrap = '<div id="actions" class="form-actions">%s</div>'){
+Form::macro('buttons', function($route, $links = array(), $options = array(), $wrap = '<div id="actions">%s</div>'){
 	$links[] = link_to_route($route, 'Back', array(), array('class' => 'btn pull-right'));
-	$links[] = Form::submit('Submit', array('class' => 'btn btn-primary pull-right'));
+	$links[] = Form::submit('Save', array('class' => 'btn btn-primary pull-right'));
 	return 	sprintf($wrap, implode('&nbsp;', $links));
 });
 
-Form::macro('tag', function( $route , $object = null, $files = false, $attributes = array()){
-  if(!is_null($object)) {
+Form::macro('tag', function( $route , $params = array(), $files = false, $attributes = array()) {
+
+  if(isset($params['page']) AND is_object($params['page'])) {
+
+  	$object = $params['page'];
+  	
   	$default_attributes = array('method' => 'PUT', 'route' => array($route.'.update', $object->id), 'files' => $files);
+  	
   	return Form::model($object, array_merge($default_attributes, $attributes));
   } else {
+
   	$default_attributes = array('route' => $route.'.store', 'files' => $files);
+  	
   	return Form::open(array_merge($default_attributes, $attributes));
   }
 });
