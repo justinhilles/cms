@@ -1,12 +1,14 @@
 <?php
 
-abstract class ListRenderer implements Iterator, ListRendererInterface {
+namespace Justinhilles\Cms\Menus;
 
-	protected $_attributes = array();
-	protected $_options = array();
-	protected $_nodes = array();
-	protected $_position = 0;
-	protected $_level = 0;
+abstract class ListRenderer implements \Iterator, ListRendererInterface {
+
+	protected $attributes = array();
+	protected $options = array();
+	protected $nodes = array();
+	protected $position = 0;
+	protected $level = 0;
 
 	public function __construct($nodes, array $options = array(), array $attributes = array(), $level = 0)
 	{   
@@ -16,24 +18,24 @@ abstract class ListRenderer implements Iterator, ListRendererInterface {
 		//Set Attributes
 		$this->mergeAttributes($attributes);
 		
-		$this->_nodes = $nodes;
+		$this->nodes = $nodes;
 		
-		$this->_attributes = (array) $attributes;
+		$this->attributes = (array) $attributes;
 	}
 
 	protected function mergeOptions($options)
 	{
-		$this->_options = (array) array_merge($this->_options, $options);
+		$this->options = (array) array_merge($this->options, $options);
 	}
 
 	protected function mergeAttributes($attributes)
 	{
-		$this->_attributes = (array) array_merge($this->_attributes, $attributes);
+		$this->attributes = (array) array_merge($this->attributes, $attributes);
 	}
 
 	protected function nodes()
 	{
-		return $this->_nodes;
+		return $this->nodes;
 	}
 
 	public function has($key) 
@@ -44,7 +46,7 @@ abstract class ListRenderer implements Iterator, ListRendererInterface {
 	public function current($key = null) 
 	{
 		if(is_null($key)) {
-			return current($this->_nodes);
+			return current($this->nodes);
 		}
 
 		if(!is_null($key) AND $this->has($key)){
@@ -56,21 +58,21 @@ abstract class ListRenderer implements Iterator, ListRendererInterface {
 
 	public function rewind()
 	{
-		return reset($this->_nodes);
+		return reset($this->nodes);
 	}
 
 	public function key()
 	{
-		return key($this->_nodes);
+		return key($this->nodes);
 	}
 
 	public function next() 
 	{
-		return next($this->_nodes);
+		return next($this->nodes);
 	}
 	public function valid() 
 	{
-		return !is_null(key($this->_nodes));
+		return !is_null(key($this->nodes));
 	}
 
 	protected function wrap($content, $element, $attributes = array(), $open = "<%s%s>", $close = "</%s>")

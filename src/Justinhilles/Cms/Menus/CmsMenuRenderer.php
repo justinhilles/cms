@@ -1,8 +1,10 @@
-<?php namespace Justinhilles\Cms\Menus;
+<?php 
+
+namespace Justinhilles\Cms\Menus;
 
 use Menu\Menu;
 
-class CmsMenuRenderer extends \ListRenderer {
+class CmsMenuRenderer extends ListRenderer {
 
 	protected $handler;
 	protected $slug = null;

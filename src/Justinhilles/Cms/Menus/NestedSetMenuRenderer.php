@@ -1,4 +1,6 @@
-<?php namespace Justinhilles\Cms\Menus;
+<?php
+
+namespace Justinhilles\Cms\Menus;
 
 use Menu\Menu;
 
