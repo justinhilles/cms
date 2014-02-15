@@ -1,0 +1,14 @@
+.center {text-align: center; margin-left: auto; margin-right: auto; margin-bottom: auto; margin-top: auto;}
+.cf:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+* html .cf { zoom: 1; }
+*:first-child+html .cf { zoom: 1; }
+
+html { margin: 0; padding: 0; }
+body { font-size: 100%; margin: 0; padding: 1.75em; font-family: 'Helvetica Neue', Arial, sans-serif; }
+h1 { font-size: 1.75em; margin: 0 0 0.6em 0; }
+a { color: #2996cc; }
+a:hover { text-decoration: none; }
+p { line-height: 1.5em; }
+.small { color: #666; font-size: 0.875em; }
+.large { font-size: 1.25em; }
+.jstree{height: 560px; width: 300px; overflow-y: scroll; overflow-x:hidden;}
