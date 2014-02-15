@@ -1,7 +1,7 @@
 {{ Form::tag('admin.pages', compact('page')) }}
 
     <div class="row">
-        <div id="tree" class="span3">
+        <div class="span3 jstree">
             <ul class="nav nav-list">
                 {{  NestedSetRenderer::create(Page::orderBy('lft')->get(), array('link_closure' => function($page){
                         return link_to_route('admin.pages.edit', $page->title, array($page->id));

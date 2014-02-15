@@ -7,25 +7,25 @@ use Justinhilles\Admin\Controllers\BaseController;
 
 class PagesController extends BaseController {
 
-	public function show($path)
-	{
-		if(!$page = Page::wherepath($path)->first()) {
-			\App::abort(404, 'Page not found');
-		}
+    public function show($path)
+    {
+        if(!$page = Page::wherepath($path)->first()) {
+            \App::abort(404, 'Page not found');
+        }
 
-		if(!isset($this->view)) {
-			$this->view = \Config::get('cms::front.view');
-		}
+        if(!isset($this->view)) {
+            $this->view = \Config::get('cms::front.view');
+        }
 
-		if(!empty($page->view)) {
-			$this->view = $page->view;
-		}
+        if(!empty($page->view)) {
+            $this->view = $page->view;
+        }
 
-		if(!empty($page->forward_to)) {
-			$forward_to = Page::find($page->forward_to);
-			return \Redirect::to($forward_to->path);
-		}
+        if(!empty($page->forward_to)) {
+            $forward_to = Page::find($page->forward_to);
+            return \Redirect::to($forward_to->path);
+        }
 
-		return \View::make('cms::pages.show', array('page' => $page));
-	}
+        return \View::make($this->view, compact('page'));
+    }
 }

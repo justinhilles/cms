@@ -8,19 +8,18 @@
                 <tr>
                     <th></th>
                     <th>Title</th>
-    				<th>Path</th>
+    	        <th>Path</th>
                     <th>Slug</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
             </thead>
-
             <tbody>
                 @foreach ($pages as $page)
                     <tr>
                         <td>{{ $page->isPublished() ? '<i class="icon-ok btn-success btn"></i>':'<i class="icon-remove btn-danger btn"></i>'  }}</td>
                         <td>{{ $page->getNestedTitle() }}</td>
-    					<td>{{ link_to($page->path, $page->path) }}</td>
+    		<td>{{ link_to($page->path, $page->path) }}</td>
                         <td>{{ $page->slug }}</td>
                         <td>{{ link_to_route('admin.pages.edit', 'Edit', array($page->id), array('class' => 'btn btn-info')) }}</td>
                         <td>
@@ -35,8 +34,6 @@
     @else
         There are no pages
     @endif
-
     <p>{{ $pages->links() }}
-    
     <p>{{ link_to_route('admin.pages.create', 'New', array(), array('class' => 'btn btn-success')) }}</p>
 @stop
