@@ -61,7 +61,7 @@ class PageRepository
         $validator = Validator::make($data, Page::$rules);
 
         if ($validator->fails()) {
-            throw new ValidationException($validator);
+            return false;
         }
         
         return true;

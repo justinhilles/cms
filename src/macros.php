@@ -75,9 +75,7 @@ Form::macro('nested', function($name, $object = null, $options = array(), $attri
                 $default_node = array($root->id);
                 $default_method = array('makeChildOf');
             }
-        }
-
-        if (!$object->isRoot()) {
+        } elseif (!$object->isRoot()) {
             $default_node = $object->getParentId();
             $default_method = array('makeChildOf');
         }
@@ -208,7 +206,7 @@ HTML;
         $html .= Form::hidden($name);
         $html .= <<<HTML
 <script>
-    $(function(){
+    (function(){
         
         function update(e){
             var list   = e.length ? e : $(e.target);
@@ -284,7 +282,7 @@ HTML;
             $(this).parent().slideUp().remove();
             nodes.trigger('change');
         });
-    });
+    })(jQuery)
 </script>
 HTML;
         return sprintf('<div class="nestable row">%s</div>', $html);
