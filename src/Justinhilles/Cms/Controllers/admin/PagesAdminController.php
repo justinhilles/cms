@@ -7,38 +7,29 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\App;
 
 class PagesAdminController extends AdminController {
 
     protected $views = 'cms::admin.pages';
 
     protected $route = 'admin.pages';
-    /**
-     * Page Repository
-     *
-     * @var Page
-     */
-    protected $page;
 
-    public function __construct(Page $page)
+
+    public function __construct()
     {
-        $this->max = Config::get('cms::config.admin.per_page');
-        
-        parent::__construct($page);
-
-        $this->page = $page;
+        $this->repository = App::make('PageRepository');;
     }
-
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index()
+    public function index($template = 'cms::admin.pages.index', $max = 10)
     {
-        $pages = $this->page->tree()->paginate($this->max);
+        $pages = $this->getRepository()->findTree()->paginate($max);
 
-        return View::make($this->view('index'), compact('pages'));
+        return View::make($template, compact('pages'));
     }
 
     /**
@@ -46,30 +37,25 @@ class PagesAdminController extends AdminController {
      *
      * @return Response
      */
-    public function create()
+    public function create($template = 'cms::admin.pages.create')
     {
-        return View::make($this->view('create'));
+        return View::make($template);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @return Response
+     * @return Redirect
      */
     public function store()
     {
-        $input = array_except(Input::all(), 'position');
-        $validation = Validator::make($input, Page::$rules);
+        $data = $this->getFormData(array('position'));
 
-        if ($validation->passes()) {   
-            $page = $this->page->create($input);
-
+        if ($page = $this->getRepository()->store($data)) {   
             return Redirect::route('admin.pages.edit', $page->id);
         }
 
         return Redirect::route('admin.pages.create')
-            ->withInput()
-            ->withErrors($validation)
             ->with('message', 'There were validation errors.');
     }
 
@@ -79,15 +65,11 @@ class PagesAdminController extends AdminController {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($id, $template = 'cms::admin.pages.edit')
     {
-        $page = $this->page->find($id);
+        $page = $this->getRepository()->find($id);
 
-        if (is_null($page)) {
-            return Redirect::route('admin.pages.index');
-        }
-
-        return View::make($this->view('edit'), compact('page'));
+        return View::make($template, compact('page'));
     }
 
     /**
@@ -98,19 +80,13 @@ class PagesAdminController extends AdminController {
      */
     public function update($id)
     {
-        $input = array_except(Input::all(), array('_method', 'position', 'menu_id'));
-        $validation = Validator::make($input, Page::$rules);
+        $data = $this->getFormData(array('_method', 'position', 'menu_id'));
 
-        if ($validation->passes()) {
-            $page = $this->page->find($id);
-            $page->update($input);
-
-            return Redirect::route('admin.pages.edit', array($page->id));
+        if ($this->getRepository()->update($id, $data)) {
+            return Redirect::route('admin.pages.edit', $id);
         }
 
         return Redirect::route('admin.pages.edit', $id)
-            ->withInput()
-            ->withErrors($validation)
             ->with('message', 'There were validation errors.');
     }
 
@@ -122,9 +98,18 @@ class PagesAdminController extends AdminController {
      */
     public function destroy($id)
     {
-        $this->page->find($id)->delete();
+        $this->getRepository()->find($id)->delete();
 
         return Redirect::route('admin.pages.index');
     }
 
+    public function getRepository()
+    {
+        return $this->repository;
+    }
+
+    public function getFormData($except = array())
+    {
+        return array_except(Input::all(), $except);
+    }
 }

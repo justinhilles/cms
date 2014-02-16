@@ -2,6 +2,7 @@
 
 use Illuminate\Support\ServiceProvider; 
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\App;
 
 class CmsServiceProvider extends ServiceProvider {
 
@@ -26,6 +27,8 @@ class CmsServiceProvider extends ServiceProvider {
         $this->package(self::PACKAGE);
 
         $this->registerFromConfig('cms');
+
+        App::bind('PageRepository', 'Justinhilles\Cms\Repositories\PageRepository');
         
     }
 

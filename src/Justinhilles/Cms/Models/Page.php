@@ -1,13 +1,13 @@
 <?php
 namespace Justinhilles\Cms\Models;
 
-use Baum\Node;
+use Baum\Node as Model;
 
 /**
 * Page
 */
-class Page extends Node {
-
+class Page extends Model
+{
     protected $guarded = array('id', 'lft', 'rgt', 'depth');
 
     public static $rules = array(
@@ -27,14 +27,17 @@ class Page extends Node {
         return $this->belongsToMany('Justinhilles\Cms\Models\Menu', 'menus_pages');
     }
 
-    public function tree()
+    public function scopeTree($query)
     {
-      return $this->orderby('lft');
+      return $query->orderby('lft');
     }
 
     public function getNestedTitle($sep = " - ")
     {
-      return str_repeat($sep, abs($this->getLevel())).$this -> title;
+      return str_repeat(
+        $sep, 
+        abs($this->getLevel())
+        ).$this -> title;
     }
 
     public function isPublished()
@@ -44,16 +47,12 @@ class Page extends Node {
 
     public function doPath($between = "/", $pages = array())
     { 
-      if($this->isRoot())
-      {
+      if ($this->isRoot()) {
         $path = null;
-      }
-      else
-      {
+      } else {
         $page = $this;
 
-        while($parent = Page::find($page->getParentId()))
-        {
+        while ($parent = Page::find($page->getParentId())) {
           if(!$parent->isRoot())
           {
             $pages[] = (string) $parent->slug;

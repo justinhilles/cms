@@ -34,6 +34,5 @@
     @else
         There are no pages
     @endif
-    <p>{{ $pages->links() }}
     <p>{{ link_to_route('admin.pages.create', 'New', array(), array('class' => 'btn btn-success')) }}</p>
 @stop
